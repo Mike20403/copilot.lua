@@ -1,5 +1,3 @@
--- lua/copilot/auth.lua (fixed version)
-
 local api = require("copilot.api")
 local c = require("copilot.client")
 local logger = require("copilot.logger")
@@ -84,6 +82,7 @@ function M.setup(client)
 
     local close_signin_popup = open_signin_popup(signin.userCode, signin.verificationUri)
 
+    -- Thay đổi từ userCode thành userId theo đúng định nghĩa API
     local sicerr, confirm = api.sign_in_confirm(client, { userId = signin.userCode })
 
     close_signin_popup()
