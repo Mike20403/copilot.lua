@@ -1,3 +1,5 @@
+-- lua/copilot/auth.lua (fixed version)
+
 local api = require("copilot.api")
 local c = require("copilot.client")
 local logger = require("copilot.logger")
@@ -82,7 +84,7 @@ function M.setup(client)
 
     local close_signin_popup = open_signin_popup(signin.userCode, signin.verificationUri)
 
-    local sicerr, confirm = api.sign_in_confirm(client, { userCode = signin.userCode })
+    local sicerr, confirm = api.sign_in_confirm(client, { userId = signin.userCode })
 
     close_signin_popup()
 
@@ -157,7 +159,7 @@ end
 
 M.get_cred = function()
   local userdata =
-    vim.json.decode(vim.api.nvim_eval("readfile('" .. find_config_path() .. "/github-copilot/hosts.json')")[1])
+  vim.json.decode(vim.api.nvim_eval("readfile('" .. find_config_path() .. "/github-copilot/hosts.json')")[1])
   local token = userdata["github.com"].oauth_token
   local user = oauth_user(token)
   return { user = user, token = token }
